@@ -41,6 +41,18 @@ app.post('/idTienda',(req,res) => {
 
 //connection.end();
 
+/*
+template to create a Connection with any MySQL data base.
+
+const nsconnection = mysql.createConnection({
+host: '0000000',
+user: 'any user',
+password: '****',
+database: 'anydb'
+});
+
+*/
+
 app.listen('3000', () => {
   console.log('server conected in port 3000');
 });
