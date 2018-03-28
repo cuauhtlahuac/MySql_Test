@@ -1,11 +1,14 @@
-var connection = require('./modules/sqlconnections.js');
+const connection = require('./modules/sqlconnections.js');
 const express = require('express');
-var ejs = require('ejs');
 const app = express();
-
-const nsconnection = connection.nsconnection;
-
+const ejs = require('ejs');
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
+const nsconnection = connection.lhconnection;
+app.set("view engine", "ejs");
 let queryIdea = 'SELECT Folio, RutaImagen1, fechav3, CantGastada FROM sncideacapproc01 WHERE MID(sncideacapproc01.Folio,4,3) =';
+
+var qFolio = "000";
 
 nsconnection.connect(function(error, results, fields){
     if(error){
@@ -15,16 +18,25 @@ nsconnection.connect(function(error, results, fields){
 });
 
 app.get('/newpost',function(req,res){
-  let qFolio = '001';
+  if(qFolio == "000"){
+    res.redirect('/id');
+  };
   let query = nsconnection.query((queryIdea + qFolio),function(err, results){
-    if(err) throw err;
-  console.log(results);
+  if(err) throw err;
+  //console.log(results);
   res.render('mysql.ejs',{sqldos: results})
   });
   });
 
-app.post('/idTienda',(req,res) => {
-  res.render('idTienda.ejs');
+
+app.get('/id',function(req,res){
+    res.render('idTienda.ejs');
+  });
+
+app.post('/id',function(req,res){
+  qFolio = req.body.getidTienda;
+  console.log(`${qFolio} ${typeof(qFolio)}`);
+  res.redirect('/newpost');
 });
 
 
@@ -52,7 +64,14 @@ database: 'anydb'
 });
 
 */
-
+let t = 0
 app.listen('3000', () => {
   console.log('server conected in port 3000');
+setInterval(function () {
+  t++;
+  console.log("init");
+}, 1000);
+setTimeout(function(){
+  console.log("-10000-");},
+  10000);
 });

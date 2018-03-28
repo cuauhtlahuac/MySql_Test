@@ -1,4 +1,23 @@
-<h1>SQL test:</h1>
-<% sqldos.forEach(function(x){ %>
-<p>result: <%= x.Folio %></p><img style="width:100px" src="<%='http://ideaw.shopnchek.com.mx/Tickets/' + x.RutaImagen1%>">
-<% }) %>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      body{
+        font-family: arial;
+      }
+      img{
+        margin: 0px 10px;
+        border: 2px solid gray;
+        border-radius: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SQL test:</h1>
+    <% sqldos.forEach(function(x){ %>
+    <span>Folio: <%= x.Folio %></span><img style="width:100px" src="<%='http://ideaw.shopnchek.com.mx/Tickets/' + x.RutaImagen1%>">
+    <% }) %>
+  </body>
+</html>
